@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace VSMS_Framework.PageObjects
 {
-    class HomePage
+   public  class HomePage
     {
         private IWebDriver driver;
 
@@ -22,13 +22,7 @@ namespace VSMS_Framework.PageObjects
         [CacheLookup]
         [FindsBy(How=How.XPath, Using = "//a[@id='overview']")]
         public IWebElement OverviewLink { get; set; }
-
-        public HomePage(IWebDriver driver)
-        {
-            this.driver = driver;
-            PageFactory.InitElements(driver, this);
-        }
-
+       
         public void ToLoginPage()
         {
             LoginLink.Click();

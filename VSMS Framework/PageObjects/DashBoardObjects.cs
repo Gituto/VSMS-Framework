@@ -1,9 +1,10 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using System.Threading;
 
 namespace VSMS_Framework.PageObjects
 {
-    class DashBoardObjects
+    public class DashBoardObjects
     {
         private IWebDriver driver;
 
@@ -28,16 +29,10 @@ namespace VSMS_Framework.PageObjects
         public IWebElement UserLink { get; set; }
 
 
-        public DashBoardObjects(IWebDriver driver)
-        {
-            this.driver = driver;
-            PageFactory.InitElements(driver, this);
-        }
-
         public void NavigateToCalendarPage()
         {
             ModulesLink.Click();
-           
+            Thread.Sleep(5000);
             CalendarManagement.Click();
             CalendarLink.Click();
            

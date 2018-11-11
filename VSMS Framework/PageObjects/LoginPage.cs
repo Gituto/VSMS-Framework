@@ -2,10 +2,11 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System.Threading;
+using VSMS_Framework.Test_Data.User_Login;
 
 namespace VSMS_Framework.PageObjects
 {
-    class LoginPage
+    public class LoginPage
     {
         private readonly IWebDriver driver;
 
@@ -30,26 +31,22 @@ namespace VSMS_Framework.PageObjects
         public IWebElement LoginErrorMsg { get; set; }
 
 
-
-        public LoginPage(IWebDriver driver)
+        public void LoginToVsms(string testName)
         {
-            this.driver = driver;
-            PageFactory.InitElements(driver, this);
-        }
+            var userLoginData = UserLoginDataAccess.GetLoginTestData(testName);
 
-        public void LoginToVsms()
-        {
-            Email.SendKeys("eapungu@gmail.com");
-            Password.SendKeys("Desteg@3871");
+            Email.SendKeys(userLoginData.Username);
+            Password.SendKeys(userLoginData.Password);
             LoginButton.Click();
 
         }
 
 
-        public void InvalidLoginToVsms()
+       public void InvalidLoginToVsms(string testName)
         {
-            Email.SendKeys("eapungu@gmail.com");
-            Password.SendKeys("Dest@3871");
+            var invalidUserLoginData = UserLoginDataAccess.GetLoginTestData(testName);
+            Email.SendKeys(invalidUserLoginData.Username);
+            Password.SendKeys(invalidUserLoginData.Password);            
             LoginButton.Click();
             Thread.Sleep(5000);
             Assert.AreEqual(true, LoginErrorMsg.Displayed);
